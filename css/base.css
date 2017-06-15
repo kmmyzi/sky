@@ -1,24 +1,28 @@
-body,h1,h2,h3,h4,h5,h6,p,pre,ol,ul,li,form,input,textarea,dl,dt,dl
-{
-margin:0;
-padding:0;
+body,h1,h2,h3,h4,h5,h6,p,pre,ol,ul,li,form,input,textarea,dl,dt,dl{
+	margin:0;
+	padding:0;
 }
 ul,ol{
-list-style:none;
+	list-style:none;
 }
 a{
-text-decoration:none;
-color:#434343;
+	text-decoration:none;
+	color:#434343;
+	display: block;
 }
 body{
-background:#fff;
-font-family: "微软雅黑", Segoe, "Segoe UI", "DejaVu Sans",sans-serif;
+	color:#434343;
+	background-color: #000;
+	background:url(http://image.sunapollo.com/img/tr/crack/bg_02.png);
+	font-family: "微软雅黑", Segoe, "Segoe UI", "DejaVu Sans",sans-serif;
 }
 /*, "Trebuchet MS", Verdana*/
 *{
-	color:#434343;
-font-weight: 300;
+	
+	font-weight: 300;
+	margin: 0;
+	padding: 0;
 }
 img{
-border:none;
+	border:none;
 }

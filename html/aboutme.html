@@ -2,8 +2,383 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>关于天瑞-天瑞教育集团</title>
+		<link rel="shortcut icon" type="text/css" href="http://image.sunapollo.com/trog.png"/>
+		<link rel="stylesheet" media="all" type="text/css" href="http://www.jq22.com/demo/jQuery-Rebox-master/jquery-rebox.css" />	
+		<link rel="stylesheet" href="../css/aboutme.css" />
+		<link rel="stylesheet" href="http://www.jq22.com/demo/Reboxlightbox20150910/css/jquery-rebox.css">	
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="http://www.jq22.com/demo/Reboxlightbox20150910/js/jquery-rebox.js"></script>
+	    <style type="text/css">
+			*{padding:0; margin:0}
+			body ul { padding: 0; margin: 0; } li { list-style: none; } img { border: 0; }
+			.play { width: 1200px; height: 884px; background: #333; font: 12px Arial; margin:0 auto }
+			.big_pic { width: 1200px; height: 640px; overflow: hidden; border-bottom: 1px solid #ccc; background: #222; position: relative; }
+			.big_pic li { width: 1200px; height: 640px; overflow: hidden; position: absolute; top: 0; left: 0; z-index: 0; background: url(http://www.jq22.com/demo/jQuery-jdt20160114/images/loading.gif) no-repeat center center; }
+			.mark_left { width: 1000px; height: 640px; position: absolute; left: 0; top: 0; background: red; filter: alpha(opacity:0); opacity: 0; z-index:3000; }
+			.mark_right { width: 1000px; height:640px; position: absolute; left: 200px; top: 0; background: green; filter: alpha(opacity:0); opacity: 0; z-index:3000; }
+			.big_pic .prev { width: 60px; height: 112px; background: url(http://image.sunapollo.com/left_right.png) no-repeat -5px -12px; position: absolute; top: 290px; left: 10px; z-index: 3001; cursor: pointer; filter:alpha(opacity: 0); opacity:0; }
+			.big_pic .next { width: 60px; height: 112px; background: url(http://image.sunapollo.com/left_right.png) no-repeat -5px -134px; position: absolute; top: 290px; right: 10px; z-index: 3001;cursor: pointer; filter:alpha(opacity: 0); opacity:0; }
+			.big_pic .text { position: absolute; left: 10px; top: 302px; z-index: 3000; color: #ccc; }
+			.big_pic .length { position: absolute; right: 10px; bottom: 4px; z-index: 3000; color: #ccc; }
+			.big_pic .bg { width: 1200px; height: 125px; background: #000; filter: alpha(opacity=60); opacity: 0.6; position: absolute; z-index: 2999; bottom: 0; left: 0; }
+			.small_pic { width: 1180px; height: 225px; position: relative; top: 7px; left: 10px; overflow: hidden; }
+			.small_pic ul { height: 225px; position: absolute; top: 0; left: 0; }
+			.small_pic li { width: 387px; height: 226px; float: left; padding-right: 10px; background: url(http://www.jq22.com/demo/jQuery-jdt20160114/images/loading.gif) no-repeat center center; cursor: pointer; filter: alpha(opacity=60); opacity: 0.6; }
+			.small_pic img { width: 387px; height: 225px; }
+			pre{ display: none; }
+		</style>
+<script>
+function getStyle(obj, attr){
+	if(obj.currentStyle){
+		return obj.currentStyle[attr];
+	}
+	else{
+		return getComputedStyle(obj, false)[attr];
+	}
+}
+function startMove(obj, attr, iTarget){
+	clearInterval(obj.timer);
+	obj.timer=setInterval(function (){
+		var iCur=0;
+		
+		if(attr=='opacity'){
+			iCur=parseInt(parseFloat(getStyle(obj, attr))*100);
+		}
+		else{
+			iCur=parseInt(getStyle(obj, attr));
+		}
+		
+		var iSpeed=(iTarget-iCur)/8;
+		iSpeed=iSpeed>0?Math.ceil(iSpeed):Math.floor(iSpeed);
+		
+		if(iCur==iTarget){
+			clearInterval(obj.timer);
+		}
+		else{
+			if(attr=='opacity')
+			{
+				obj.style.filter='alpha(opacity:'+(iCur+iSpeed)+')';
+				obj.style.opacity=(iCur+iSpeed)/100;
+			}
+			else
+			{
+				obj.style[attr]=iCur+iSpeed+'px';
+			}
+		}
+	}, 30)
+}
+function getByClass(oParent, sClass){
+	var aEle=document.getElementsByTagName('*');
+	var i=0;
+	var aResult=[];
+	for(i=0;i<aEle.length;i++){
+		if(aEle[i].className==sClass){
+			aResult.push(aEle[i]);
+		}
+	}
+	return aResult;
+}
+window.onload=function (){
+	var oDiv=document.getElementById('playeimages');
+	var oBtnPrev=getByClass(oDiv, 'prev')[0];
+	var oBtnNext=getByClass(oDiv, 'next')[0];
+	var oMarkLeft=getByClass(oDiv, 'mark_left')[0];
+	var oMarkRight=getByClass(oDiv, 'mark_right')[0];
+	var oSmallUl=getByClass(oDiv, 'small_pic')[0].getElementsByTagName('ul')[0];
+	var aSmallLi=oSmallUl.getElementsByTagName('li');
+	var oBigUl=getByClass(oDiv, 'big_pic')[0];
+	var aBigLi=oBigUl.getElementsByTagName('li');
+	var iNow=0;
+	var iMinZindex=2;
+	var i=0;
+	oSmallUl.style.width=aSmallLi.length*aSmallLi[0].offsetWidth+'px';
+	//上面的左右按钮
+	oBtnPrev.onmouseover=oMarkLeft.onmouseover=function (){
+		startMove(oBtnPrev, 'opacity', 100);
+	}
+	oBtnPrev.onmouseout=oMarkLeft.onmouseout=function (){
+		startMove(oBtnPrev, 'opacity', 0);
+	}
+	oBtnNext.onmouseover=oMarkRight.onmouseover=function (){
+		startMove(oBtnNext, 'opacity', 100);
+	}
+	oBtnNext.onmouseout=oMarkRight.onmouseout=function (){
+		startMove(oBtnNext, 'opacity', 0);
+	}
+	//小图点击，大图显示
+	for(i=0;i<aSmallLi.length;i++){
+		aSmallLi[i].index=i;
+		aSmallLi[i].onmouseover=function (){
+			startMove(this, 'opacity', 100);
+		}
+		aSmallLi[i].onmouseout=function (){
+			if(this.index!=iNow){
+				startMove(this, 'opacity', 60);
+			}
+		}
+		aSmallLi[i].onclick=function (){
+			if(this.index==iNow)return;
+			iNow=this.index;
+			
+			tab();
+		}
+		function tab(){
+			for(i=0;i<aSmallLi.length;i++){
+				startMove(aSmallLi[i], 'opacity', 60);
+			}
+			startMove(aSmallLi[iNow], 'opacity', 100);
+			aBigLi[iNow].style.zIndex=iMinZindex++;
+			aBigLi[iNow].style.height=0;
+			
+			startMove(aBigLi[iNow], 'height', oBigUl.offsetHeight);
+			
+			if(iNow==0){
+				startMove(oSmallUl, 'left', 0);
+			}
+			else if(iNow==aSmallLi.length-1){
+				startMove(oSmallUl, 'left', -(iNow-2)*aSmallLi[0].offsetWidth);
+			}
+			else{
+				startMove(oSmallUl, 'left', -(iNow-1)*aSmallLi[0].offsetWidth);
+			}
+		}
+		oBtnPrev.onclick=function (){
+			iNow--;
+			if(iNow==-1){
+				iNow=aSmallLi.length-1;
+			}
+			tab();
+		}
+		oBtnNext.onclick=function (){
+			iNow++;
+			if(iNow==aSmallLi.length){
+				iNow=0;
+			}
+			tab();
+		}
+	}
+}
+</script>
+<link rel="stylesheet" href="http://www.jq22.com/demo/tanchu-141118003216/reveal.css">
+<script type="text/javascript" src="http://www.jq22.com/demo/tanchu-141118003216/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="http://www.jq22.com/demo/tanchu-141118003216/js/jquery.reveal.js"></script>
+<script type="text/javascript" src="http://www.jq22.com/demo/tanchu-141118003216/js/jquery.metadata.js"></script>
+<script type="text/javascript" src="http://www.jq22.com/demo/tanchu-141118003216/js/jquery.media.js"></script> 
+<script type="text/javascript">
+$(function(){
+	var media1 = '<a class="media" href="http://image.sunapollo.com/ALIVE.mp4"></a>';
+	$('#img1').bind("click",function(){
+		$('#myModal').prepend(media1);
+		$('.media').media({ width:900, height:450});
+	});
+});
+</script>
+<script src="../js/about.js"></script>
 	</head>
 	<body>
+		<div class="nav">
+			<a href="../index.html" target="_blank" class="logo">
+				<img src="http://image.sunapollo.com/img/tr/specialty/logo1.png"/>
+			</a>
+			<div class="navbar">
+				<a href="../index.html" target="_blank" class="navbarList">首页</a>
+				<a href="#" class="navbarList  listActive">关于天瑞</a>
+				<a href="specialty.html" target="_blank" class="navbarList">专业设置</a>
+				<a href="trends.html" target="_blank" class="navbarList">天瑞动态</a>
+				<a href="#" class="navbarList navbarList1">&nbsp;</a>
+				<a href="crack.html" target="_blank" class="navbarList">精锐师资</a>
+				<a href="profession.html" target="_blank" class="navbarList">教学专业</a>
+				<a href="trainee.html" target="_blank" class="navbarList">学员专区</a>
+				<a href="connection.html" target="_blank" class="navbarList">联系我们</a>
+			</div>
+		</div>
+		<div class="banner">
+			<div class="chibang">
+				<img src="http://image.sunapollo.com/img/tianrui/index/chibang.png"/>
+			</div>
+			<img src="http://image.sunapollo.com/img/tr/bc/abouttrvideo_03.png" alt="" />
+		</div>
+		<div class="jtjj">
+			<div class="jtjjCon">
+				<div class="jtjjConTitle">
+					<img src="http://image.sunapollo.com/19.png"/>
+				</div>
+				<div class="jtjjConMiddle">
+					<p>太原天瑞培训学校是由国家正式批准设立，在太原市教育局注册备案的正规学校，是我省高考影视传媒类专业培训基地。  </p>
+					<p>我校非常重视教师队伍素质的提高 。有一个专业的领导班子 ，有一支师德高尚 、业务精良、敬业稳定、应考经验丰富的专业团队。有一批乐教育、懂专业、善管理、有爱心 、尽职尽责的精品教师队伍全程跟班、全面指导 。经过我们多年的努力 ，目前我校已经成为省内同行中规模最大，艺考合格率最高的学校之一。同时我校与多地、多所大学建立了良好的合作关系，能为本校学生提供更多的便利与帮助。</p>
+					<p>我校致力于播音主持、编导、表演等高考专业的培训工作。学校师资队伍，主要由来自于省内各个高校的专业教师组成，同时辅以电台、电视台的播音员、主持人、制片人。他们都有着丰富的专业背景与教学经验，是经过了过往多届学生与家长的集体认可的。学校致力成为最具社会责任感和最值得信赖的培训机构。
+       </p>
+					<p>大学圆梦，选择我们考不上都难！</p>
+				</div>
+			</div>
+		</div>
+		<div class="zm">
+			<!--<img src="http://image.sunapollo.com/img/tr/about/15.png" alt=""  class="zmImg"/>
+			<div class="pop">
+				<img src="http://image.sunapollo.com/video-play.png" class="popImg"/>
+			</div>-->
+			<div class="wrapper">
+				<div class="header">
+					<ul class="nav1">
+					</ul>
+				</div>
+				<div class="content">
+					<div class="example-container">
+						<div>
+					 		<div id="gallery4" class="gallery">
+					 			<a href="http://image.sunapollo.com/ALIVE.mp4" title="" data-rebox-template="video">
+					 				<img src="http://image.sunapollo.com/img/tr/about/15.png"   class="zmImg"/>
+					 				<div class="pop">
+										<img src="http://image.sunapollo.com/img/tr/bc/abouttrvideo_06.png" class="popImg"/>
+									</div>
+					 			</a>
+					 		</div>
+						</div>
+						<pre class="ex code" data-lllanguage="js">
+						$('#gallery4 a').rebox({
+							templates:{
+								video: function($item, settings, callback){
+									var url = $item.attr('href').replace(/\.\w+$/,'');
+									return $('&lt;video class="'+ settings.theme +'-content" controls preload="metadata" '+
+			  						'poster="'+url+'.jpg"&gt;'+
+									'&lt;source src="'+url+'.webm" type="video/webm" /&gt;'+
+									'&lt;source src="'+url+'.mp4" type="video/mp4" /&gt;'+
+									'Your browser does not support the HTML5 video tag'+
+									'&lt;/video&gt;').on('loadeddata', callback);
+								}
+							}
+						});
+						</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bxts">
+			<div class="bxtsCon">
+				<img src="http://image.sunapollo.com/img/tr/about/16.png" alt=""/>
+			</div>
+		</div>
+		<div class="xxhj">
+			<div class="xxhjCon">
+				<div class="xxhjConTitle">
+					<img src="http://image.sunapollo.com/21.png" alt=""/>
+				</div>
+				<div class="xxhjConMiddle">
+					<div id="playimages" class="play">
+					    <ul class="big_pic">
+							<div class="prev"></div>
+							<div class="next"></div>
+							<a class="mark_left" href="javascript:;"></a>
+							<a class="mark_right" href="javascript:;"></a>
+							
+
+
+
+
+					        <li style="z-index:1;"><img src="http://image.sunapollo.com/img/tr/about/2.png" /></li>
+					        <li><img src="http://image.sunapollo.com/img/tr/about/3.png" /></li>
+					        <li><img src="http://image.sunapollo.com/img/tr/about/4.png" /></li>
+					        <li><img src="http://image.sunapollo.com/img/tr/about/5.png" /></li>
+					        <li><img src="http://image.sunapollo.com/img/tr/about/6.png" /></li>
+					    </ul>
+					    <div class="small_pic">
+					        <ul style="width:390px;">
+					            <li style="filter: 100; opacity: 1;"><img src="http://image.sunapollo.com/img/tr/about/2.png" /></li>
+					            <li><img src="http://image.sunapollo.com/img/tr/about/3.png" /></li>
+					            <li><img src="http://image.sunapollo.com/img/tr/about/4.png" /></li>
+					            <li><img src="http://image.sunapollo.com/img/tr/about/5.png" /></li>
+					            <li><img src="http://image.sunapollo.com/img/tr/about/6.png" /></li>        		
+					        </ul>
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ryzz">
+			<div class="ryzzCon">
+				<div class="ryzzConTitle">
+					<img src="http://image.sunapollo.com/22.png" alt="" />
+				</div>
+				<div class="ryzzConMiddle">
+					<div id="gallery2" class="gallery row">
+								<a class="col-lg-3" href="http://image.sunapollo.com/img/tr/about/7.png?imageslim" title="诚信联盟会员单位"><img src="http://image.sunapollo.com/img/tr/about/7.png?imageslim"></a>
+								<a class="col-lg-3" href="http://image.sunapollo.com/img/tr/about/8.png?imageslim" title="民进社会服务基地"><img src="http://image.sunapollo.com/img/tr/about/8.png?imageslim"></a>
+								<a class="col-lg-3" href="http://image.sunapollo.com/img/tr/about/9.png?imageslim" title="值得信赖的播音主持辅导机构"><img src="http://image.sunapollo.com/img/tr/about/9.png?imageslim"></a>
+								<a class="col-lg-3" href="http://image.sunapollo.com/img/tr/about/10.png?imageslim" title="品牌艺术培训机构"><img src="http://image.sunapollo.com/img/tr/about/10.png?imageslim"></a>
+								
+								<a class="col-lg-3" href="http://image.sunapollo.com/img/tr/about/11.png?imageslim" title="常务理事单位"><img src="http://image.sunapollo.com/img/tr/about/11.png?imageslim"></a>
+								<a class="col-lg-3" href="http://image.sunapollo.com/img/tr/about/12.png?imageslim" title="民进教育调研基地"><img src="http://image.sunapollo.com/img/tr/about/12.png?imageslim"></a>
+								<a class="col-lg-3" href="http://image.sunapollo.com/img/tr/about/13.png?imageslim" title="中华人民共和国民办学校办学许可证"><img src="http://image.sunapollo.com/img/tr/about/13.png?imageslim"></a>
+								<a class="col-lg-3" href="http://image.sunapollo.com/img/tr/about/14.png?imageslim" title="最具社会责任感教育机构"><img src="http://image.sunapollo.com/img/tr/about/14.png?imageslim"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="dblb"></div>
+		<div class="footer">
+			<div class="footerCon">
+				<div class="footerConLeft">
+					<div class="footerConLeftTop">
+						<img src="http://image.sunapollo.com/trjyjt.png" alt="" />
+					</div>
+					<div class="footerConLeftBottom">电话：400-0351-554</div>
+					<div class="footerConLeftBottom">地址：迎泽西大街千峰南路口千峰商务大厦6层</div>
+				</div>
+				<div class="footerConMiddle">
+					<div class="trewm">
+						<div class="trewmImg">
+							<img src="http://image.sunapollo.com/trewm1.png" alt="" />
+						</div>
+						<div class="trewmImgTitle footerConLeftBottom">天瑞影视文化</div>
+					</div>
+					<div class="trewm">
+						<div class="trewmImg">
+							<img src="http://image.sunapollo.com/trewm2.png" alt="" />
+						</div>
+						<div class="trewmImgTitle footerConLeftBottom">艺考嘚吧嘚</div>
+					</div>
+				</div>
+				<div class="footerConRight">
+					<div class="footerConRightCon">
+						<div class="footerConRightConTitle footerConLeftBottom">快速导航：</div>
+						<div class="footerConRightConA"><a href="../index.html">集团首页</a></div>
+						<div class="footerConRightConA"><a href="#">关于天瑞</a></div>
+						<div class="footerConRightConA"><a href="trends.html">天瑞动态</a></div>
+						<div class="footerConRightConA"><a href="profession.html">开设专业</a></div>
+						<div class="footerConRightConA footerConRightConAlast"><a href="trainee.html" target="_blank">艺考动态</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="http://www.jq22.com/demo/jQuery-Rebox-master/lib/jquery-litelighter.js"></script>
+		<script type="text/javascript" src="http://www.jq22.com/demo/jQuery-Rebox-master/jquery-rebox.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				// quick routine for scrolling nav
+				var $nav = $('.header ul'),
+					navoffset = $nav.offset(),
+					$navclone = $nav.clone().addClass('scrollnav').appendTo('.header'),
+					$window = $(window);
+				$window.scroll(function(e){
+					if((navoffset.top+50) < $window.scrollTop()){
+						if(!$navclone.hasClass('scrolled'))
+							$navclone.addClass('scrolled');
+					}
+					else $navclone.removeClass('scrolled');
+				}).scroll();
+				// highlight the code
+				$('pre.code').litelighter();
+				// run the examples
+				$('.example-container > pre.ex').each(function(i){
+					eval($(this).data('llcode'));
+				});
+			});
+		</script>
+		<script src="../js/xz.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+$('#gallery2').rebox({ selector: 'a' });
+</script>
+
 	</body>
 </html>

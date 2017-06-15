@@ -2,12 +2,16 @@ $(function(){
 	$(".more").hover(function(){
 	    $(this).animate({         
     width:"180px",
-    background:"#febe05"
+    background:"#febe05",
+	color:"#fffbee",
+	border:"none"
   }, 400 ); 
 	},function(){
 	    $(this).animate({         
     width:"150px",
-    background:"transparent"
+    background:"rgba(0,0,0,.0)",
+    borderWidth: "1px",
+    color:"#434343"
   }, 400 );
 	});
 	$(".specialtyConContent").hover(function(){
@@ -134,14 +138,14 @@ $(function(){
 $(".rwtx").hover(function(){
 	    $(this).children(".al").animate({         
     borderWidth: "10px",
-    marginLeft: "-38.5px",
-   marginTop:"-38.5px"
+    marginLeft: "-29px",
+   bottom:"15px"
   }, 400 );
 	},function(){
 	   $(this).children(".al").animate({
     borderWidth: "0px",
-    marginLeft: "-28.5px",
-   marginTop:"-28.5px"
+    marginLeft: "-19px",
+   bottom:"25px"
   }, 400 );
 	});
 	$(".rwtx").hover(function(){
@@ -183,8 +187,8 @@ $(".rwtx").hover(function(){
 	$(".xy a").hover(function(){
 	    $(this).children(".xyImg").children("img").animate({         
     borderWidth: "10px",
-    marginLeft: "41px",
-   marginTop:"65px",
+    marginLeft: "37px",
+   marginTop:"61px",
    marginBottom:"0px"
   }, 400 );
 	},function(){
@@ -213,6 +217,66 @@ $(".rwtx").hover(function(){
     color: "#434343"
   }, 400 );
 	});
+	$(".zyfxList").hover(function(){
+	    $(this).children(".zyfxListTop").children(".zyfxListTopImg").animate({         
+    left:"8px",
+}, 400 );
+	},function(){
+	   $(this).children(".zyfxListTop").children(".zyfxListTopImg").animate({
+    left: "0px", 
+}, 400 );
+	});
+	$(".trcsr").hover(function(){
+	    $(this).children(".trcsrLeft").children("span").animate({         
+    opacity:"1",
+}, 400 );
+	},function(){
+	   $(this).children(".trcsrLeft").children("span").animate({
+    opacity: "0", 
+}, 400 );
+	});
+	$(".teachersListTop").hover(function(){
+	    $(this).children("span").animate({         
+    opacity:"1",
+}, 400 );
+	},function(){
+	   $(this).children("span").animate({
+    opacity: "0", 
+}, 400 );
+	});
+	$(".teachersListTop").hover(function(){
+	    $(this).children(".selectZ").animate({         
+    opacity:"1",
+    borderWidth: "10px",
+    marginLeft:"-44.5px",
+    marginTop:"-44.5px"
+}, 400 );
+	},function(){
+	   $(this).children(".selectZ").animate({
+    opacity: "0", 
+    borderWidth: "1px",
+    marginLeft:"-36.5px",
+    marginTop:"-36.5px"
+}, 400 );
+	});
+	$(".trdtConDivCon").hover(function(){
+	    $(this).children(".trdtConDivConRight").children(".rightArrow").animate({         
+    opacity:"1"
+}, 400 );
+	},function(){
+	   $(this).children(".trdtConDivConRight").children(".rightArrow").animate({
+    opacity: "0"
+}, 400 );
+	});
+	$(".footerConRightConA").hover(function(){
+	    $(this).children("a").animate({         
+    color:"#fff"
+  }, 400 );
+	},function(){
+	   $(this).children("a").animate({
+    color:"#838383"
+  }, 400 );
+	});
 	$(".footerConRightConA").hover(function(){
 	    $(this).children("a").animate({         
     color:"#fff"
@@ -225,3 +289,4 @@ $(".rwtx").hover(function(){
 //	linear-gradient(to right, #16191c 15%, #eee 50%, #16191c 85%)
 })
 //	footerConRightConA
+//trdtConDivCon
