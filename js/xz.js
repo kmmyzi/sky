@@ -261,11 +261,57 @@ $(".rwtx").hover(function(){
 	});
 	$(".trdtConDivCon").hover(function(){
 	    $(this).children(".trdtConDivConRight").children(".rightArrow").animate({         
-    opacity:"1"
+    opacity:"1",
+    marginLeft:"45px"
 }, 400 );
 	},function(){
 	   $(this).children(".trdtConDivConRight").children(".rightArrow").animate({
+    opacity: "0",
+    marginLeft:"0px"
+}, 400 );
+	});
+	$(".trdtDiv").hover(function(){
+	    $(this).children(".trdtConDivLeft").children(".time").animate({  
+	    	color:"yellow",
+    		marginLeft:"45px"
+}, 400 );
+	},function(){
+	   $(this).children(".trdtConDivLeft").children(".time").animate({
+	   	color:"#000",
+    		marginLeft:"0px"
+}, 400 );
+	});
+	$(".trdtDiv").hover(function(){
+	    $(this).children(".rightzhuan").animate({         
+    marginRight:"45px",
+    opacity:"1"
+}, 400 );
+	},function(){
+	   $(this).children(".rightzhuan").animate({
+    marginRight:"120px",
     opacity: "0"
+}, 400 );
+	});
+	$(".trdtConDivCon").hover(function(){
+	   $(this).children(".trdtConDivConMiddle").children(".trdtConDivConMiddleCon").children(".trdtConDivConRightConTitle").animate({         
+    marginLeft:"15px",
+    width:"420px"
+}, 400 );
+	},function(){
+	   $(this).children(".trdtConDivConMiddle").children(".trdtConDivConMiddleCon").children(".trdtConDivConRightConTitle").animate({
+    marginLeft:"0px",
+    width:"420px"
+}, 400 );
+	});
+	$(".trdtConDivCon").hover(function(){
+	   $(this).children(".trdtConDivConMiddle").children(".trdtConDivConMiddleCon").children("p").animate({         
+    marginLeft:"15px",
+    width:"380px"
+}, 400 );
+	},function(){
+	   $(this).children(".trdtConDivConMiddle").children(".trdtConDivConMiddleCon").children("p").animate({
+    marginLeft:"0px",
+    width:"380px"
 }, 400 );
 	});
 	$(".footerConRightConA").hover(function(){
